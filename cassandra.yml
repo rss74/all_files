@@ -1,0 +1,9 @@
+---
+ - hosts: cassandra
+   become: yes
+   become_method: sudo
+#   vars:
+#     cluster_name: Test_Cluster
+#     seeds: 34.69.114.82
+   roles:
+     - newproject

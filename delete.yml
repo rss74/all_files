@@ -1,0 +1,9 @@
+---
+ - hosts: localhost 
+   become: yes
+   become_method: sudo
+   tasks:
+     - name: Ansible delete directory
+       file:
+         path: /home/sai/template1
+         state: absent

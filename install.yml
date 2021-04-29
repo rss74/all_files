@@ -1,0 +1,17 @@
+---
+ - hosts: cassandra
+   become: yes
+   become_method: sudo
+   tasks:
+     - name: installing cassandra at remote location
+       yum:
+       echo "deb http://www.apache.org/dist/cassandra/debian 39x main" | sudo tee -a /etc/apt/sources.list.d/cassandra.sources.list
+       sudo yum install curl
+       curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
+       sudo yum update
+       sudo yum install cassandra
+       sudo systemctl enable cassandra
+       sudo systemctl start cassandra
+       sudo systemctl status cassandra
+       sudo yum install jdk-8u161-linux-x64.rpm
+

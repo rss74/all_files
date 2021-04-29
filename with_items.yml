@@ -1,0 +1,15 @@
+---
+ - hosts : all
+   become : yes
+   become_method : sudo
+   tasks :
+     - name: installing multiple files
+       yum:
+         name: "{{item}}"
+         state: present
+       with_items:
+          - httpd
+          - ntp
+          - git
+          - tar
+          - zip

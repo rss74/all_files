@@ -1,0 +1,16 @@
+---
+ - hosts : all
+   become : yes
+   become_method : sudo
+   tasks :
+   #  - name : archive operation in multiplefiles
+   #    archive :
+   #      path: /home/sai/playbook
+   #      dest: /tmp/playbook.tar
+   #      format: tar
+     - name : copy playbook zip file
+       copy :
+         src: /tmp/playbook.tar
+         dest: /tmp
+   
+

@@ -1,0 +1,10 @@
+---
+ - hosts : cassandra
+   become : yes
+   become_method : sudo
+   tasks :
+     - name: install cassandra
+       yum:
+        name: cassandra
+        state: present
+

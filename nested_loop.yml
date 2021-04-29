@@ -1,0 +1,14 @@
+---
+ - hosts: all
+   become: yes
+   become_method: sudo
+   gather_facts: no
+   tasks:
+     - name : grouping with nested loops
+       user:
+         name: "{{ item [0] }}"
+         state: present
+         groups: "{{ item [1] }}"
+       with_nested:
+         - { "testuser001" , "testuser002" }
+         - { "sai" , "sai" }

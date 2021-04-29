@@ -1,0 +1,32 @@
+- hosts: localhost
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: initialize the cluster
+      shell: kubeadm init --pod-network-cidr=10.244.0.0/16 >> cluster_initialized.txt
+      args:
+        chdir: $HOME    
+        creates: cluster_initialized.txt
+
+    - name: create .kube directory
+      become: yes
+      become_user: sai
+      file:
+        path: $HOME/.kube
+        state: directory
+        mode: 0755
+
+    - name: copy admin.conf to user's kube config
+      copy:
+        src: /etc/kubernetes/admin.conf
+        dest: /home/sai/.kube/config
+        remote_src: yes
+        owner: sai
+
+    - name: install Pod network
+      become: yes
+      become_user: sai
+      shell: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+      args:
+        chdir: $HOME    
+        creates: pod_network_setup.txt

@@ -1,0 +1,13 @@
+---
+ - hosts : all
+   become : yes
+   become_method : sudo
+ 
+   tasks :
+     - name : copies file to remote locations
+       copy :
+         src: /home/sai/test.txt
+         dest: /tmp
+         owner: sai
+         group: sai
+         mode: 0644
